@@ -32,6 +32,10 @@
       border-radius: 8px;
     }
 
+    .leaflet-control-attribution {
+      display: none !important;
+    }
+
     .spotlist {
       display: flex;
       flex-direction: column;
@@ -96,12 +100,11 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([53.08, 8.80], 13);
+    const map = L.map('map').setView([53.08, 8.81], 12);
 
-    // Lesbare, kontrastreiche Karte
-    L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
-      attribution: 'Map tiles by <a href="https://stamen.com">Stamen Design</a>, ' +
-                   '<a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    // Gute, lesbare OpenStreetMap-Karte
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: false
     }).addTo(map);
 
     const logoIcon = L.icon({

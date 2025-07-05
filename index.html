@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Go to Spot</title>
+  <title>Go to Spot – Alliance BMX</title>
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
@@ -90,34 +90,41 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
     const map = L.map('map').setView([53.083, 8.809], 14);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '' }).addTo(map);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '',
-    }).addTo(map);
-
-    // Icons
+    // Alliance-Logo mit korrigierten Proportionen (angenommen 40x24 px)
     const iconAlliance = L.icon({
       iconUrl: 'alliance_logo_marker.png',
-      iconSize: [28, 28],
-      iconAnchor: [14, 28],
+      iconSize: [40, 24],
+      iconAnchor: [20, 24],
+      popupAnchor: [0, -24]
     });
 
+    // Marker-Icons für Skatepark und Big Five – benutze hier deine PNGs, die im Repo liegen.
     const iconSkatepark = L.icon({
       iconUrl: 'IMG_8624.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 32],
+      iconAnchor: [16, 32]
     });
 
     const iconStreetspot = L.icon({
       iconUrl: 'IMG_8625.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 32],
+      iconAnchor: [16, 32]
     });
 
-    // Marker setzen
-    L.marker([53.08845, 8.80896], { icon: iconAlliance }).addTo(map).bindPopup("Alliance BMX Shop");
-    L.marker([53.08799, 8.80978], { icon: iconSkatepark }).addTo(map).bindPopup("Skatepark Schlachthof Bremen");
-    L.marker([53.07176, 8.80985], { icon: iconStreetspot }).addTo(map).bindPopup("Big Five");
+    // Marker platzieren mit exakten Koordinaten:
+    L.marker([53.08845, 8.80896], { icon: iconAlliance })
+      .addTo(map)
+      .bindPopup("Alliance BMX Shop");
+
+    L.marker([53.08799, 8.80978], { icon: iconSkatepark })
+      .addTo(map)
+      .bindPopup("Skatepark Schlachthof Bremen");
+
+    L.marker([53.07176, 8.80985], { icon: iconStreetspot })
+      .addTo(map)
+      .bindPopup("Big Five");
   </script>
 </body>
 </html>

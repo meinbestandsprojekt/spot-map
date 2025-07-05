@@ -1,129 +1,138 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Go to Spot – Alliance BMX</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <title>Go to Spot 🌍</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
     body {
       margin: 0;
-      font-family: 'Fjalla One', sans-serif;
+      padding: 0;
       background-color: #000;
-      color: #fff;
+      font-family: 'Fjalla One', sans-serif;
+      color: white;
       text-align: center;
-      padding: 20px;
     }
+
     h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
+      font-size: 42px;
+      margin-top: 30px;
     }
-    .map-container {
-      width: 100%;
-      max-width: 600px;
-      height: 400px;
-      margin: 0 auto 30px;
-      border-radius: 12px;
-      overflow: hidden;
+
+    p.subtitle {
+      font-size: 18px;
+      margin-bottom: 20px;
     }
+
     #map {
-      width: 100%;
-      height: 100%;
-    }
-    .spot-list {
-      max-width: 600px;
+      height: 400px;
       margin: 0 auto;
-      text-align: left;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 600px;
     }
-    .spot-list a {
+
+    .spot-list {
+      text-align: left;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      font-size: 18px;
+    }
+
+    .spot {
+      margin-bottom: 30px;
+    }
+
+    .spot-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .spot-address {
+      color: #ccc;
+    }
+
+    .spot-link {
       color: white;
       text-decoration: underline;
     }
-    .spot-item {
-      margin-bottom: 25px;
-    }
-    .spot-item strong {
-      display: block;
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
-    .spot-item .address {
-      color: #aaa;
-      font-size: 15px;
-    }
-    .spot-item .desc {
-      margin: 4px 0;
+
+    .emoji {
+      font-size: 32px;
+      vertical-align: middle;
+      margin-right: 6px;
     }
   </style>
 </head>
 <body>
   <h1>Go to Spot 🗺️</h1>
-  <p>Unsere Lieblingsspots aus Bremen – interaktiv & stylisch dargestellt.</p>
-
-  <div class="map-container">
-    <div id="map"></div>
-  </div>
+  <p class="subtitle">Unsere Lieblingsspots aus Bremen – interaktiv & stylisch dargestellt.</p>
+  <div id="map"></div>
 
   <div class="spot-list">
-    <div class="spot-item">
-      <strong>Alliance BMX Shop</strong>
-      <div class="address">Findorffstraße 46/48, 28215 Bremen</div>
-      <div class="desc">Treffpunkt – Local Shop</div>
-      <a href="https://maps.google.com/?q=53.08845,8.80896" target="_blank">In Google Maps öffnen</a>
+    <div class="spot">
+      <div class="spot-title">🏪 Alliance BMX Shop</div>
+      <div class="spot-address">Findorffstraße 46/48, 28215 Bremen</div>
+      <div>Treffpunkt – Local Shop</div>
+      <a class="spot-link" href="https://maps.google.com/?q=53.08845,8.80896" target="_blank">In Maps anzeigen</a>
     </div>
-    <div class="spot-item">
-      <strong>Skatepark Schlachthof Bremen</strong>
-      <div class="address">Findorffstraße 51, 28215 Bremen</div>
-      <div class="desc">Endpunkt – Skatepark</div>
-      <a href="https://maps.google.com/?q=53.08799,8.80978" target="_blank">In Google Maps öffnen</a>
+
+    <div class="spot">
+      <div class="spot-title">🔥 Skatepark Schlachthof</div>
+      <div class="spot-address">Findorffstraße 51, 28215 Bremen</div>
+      <div>Endpunkt – Skatepark</div>
+      <a class="spot-link" href="https://maps.google.com/?q=53.08799,8.80978" target="_blank">In Maps anzeigen</a>
     </div>
-    <div class="spot-item">
-      <strong>Big Five</strong>
-      <div class="address">Weserpromenade, 28195 Bremen</div>
-      <div class="desc">Legend Spot!</div>
-      <a href="https://maps.google.com/?q=53.07176,8.80985" target="_blank">In Google Maps öffnen</a>
+
+    <div class="spot">
+      <div class="spot-title">🪜 Big Five</div>
+      <div class="spot-address">Weserpromenade, 28195 Bremen</div>
+      <div>Legend Spot!</div>
+      <a class="spot-link" href="https://maps.google.com/?q=53.07176,8.80985" target="_blank">In Maps anzeigen</a>
     </div>
   </div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([53.083, 8.809], 14);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '' }).addTo(map);
+    const map = L.map('map').setView([53.0845, 8.80896], 14);
 
-    // Alliance-Logo mit korrigierten Proportionen (angenommen 40x24 px)
-    const iconAlliance = L.icon({
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Leaflet | © OpenStreetMap'
+    }).addTo(map);
+
+    const logoMarker = L.icon({
       iconUrl: 'alliance_logo_marker.png',
-      iconSize: [40, 24],
-      iconAnchor: [20, 24],
+      iconSize: [34, 23],
+      iconAnchor: [17, 23],
       popupAnchor: [0, -24]
     });
 
-    // Marker-Icons für Skatepark und Big Five – benutze hier deine PNGs, die im Repo liegen.
     const iconSkatepark = L.icon({
       iconUrl: 'IMG_8624.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 32]
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -28]
     });
 
-    const iconStreetspot = L.icon({
+    const iconBigFive = L.icon({
       iconUrl: 'IMG_8625.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 32]
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -28]
     });
 
-    // Marker platzieren mit exakten Koordinaten:
-    L.marker([53.08845, 8.80896], { icon: iconAlliance })
-      .addTo(map)
+    L.marker([53.08845, 8.80896], { icon: logoMarker }).addTo(map)
       .bindPopup("Alliance BMX Shop");
 
-    L.marker([53.08799, 8.80978], { icon: iconSkatepark })
-      .addTo(map)
-      .bindPopup("Skatepark Schlachthof Bremen");
+    L.marker([53.08799, 8.80978], { icon: iconSkatepark }).addTo(map)
+      .bindPopup("Skatepark Schlachthof");
 
-    L.marker([53.07176, 8.80985], { icon: iconStreetspot })
-      .addTo(map)
+    L.marker([53.07176, 8.80985], { icon: iconBigFive }).addTo(map)
       .bindPopup("Big Five");
   </script>
 </body>

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Go to Spot – Alliance BMX</title>
 
-  <!-- Font & Leaflet -->
+  <!-- Schrift & Leaflet -->
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -100,32 +100,36 @@
   <script>
     const map = L.map('map').setView([53.08, 8.81], 13);
 
-    // Weiß/Schwarz Stil (Carto Light)
+    // Carto Light Tiles (Weiß/Schwarz-Stil)
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '',
       subdomains: 'abcd',
       maxZoom: 19
     }).addTo(map);
 
+    // Logo-Marker (angepasste Größe)
     const logoIcon = L.icon({
       iconUrl: 'alliance_logo_marker.png',
-      iconSize: [60, 40],
-      iconAnchor: [30, 40],
-      popupAnchor: [0, -40]
+      iconSize: [36, 24],
+      iconAnchor: [18, 24],
+      popupAnchor: [0, -24]
     });
 
+    // Rampen-Symbol
     const rampIcon = L.divIcon({
       html: '🛹',
-      iconSize: [30, 30],
+      iconSize: [28, 28],
       className: ''
     });
 
+    // Treppen-Symbol
     const stairIcon = L.divIcon({
       html: '🪜',
-      iconSize: [30, 30],
+      iconSize: [28, 28],
       className: ''
     });
 
+    // Marker setzen
     L.marker([53.08845, 8.80896], {icon: logoIcon})
       .addTo(map)
       .bindPopup("<strong>Alliance BMX Shop</strong><br>Treffpunkt – Local Shop");

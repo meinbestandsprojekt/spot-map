@@ -144,26 +144,34 @@
     });
 
     // CSV aus Google Sheet laden
-fetch('https://docs.google.com/spreadsheets/d/10-MItRgr8ckXkZCeiMU0r24-HNX0nyJKNNn7mwW1y7M/gviz/tq?tqx=out:csv')
-  .then(response => response.text())
-  .then(csvText => {
-    const rows = csvText.trim().split('\n').slice(1); // Erste Zeile = Header
-    rows.forEach(row => {
-      const [name, lat, lng, info, icon] = row.split(',');
+    fetch('https://docs.google.com/spreadsheets/d/10-MItRgr8ckXkZCeiMU0r24-HNX0nyJKNNn7mwW1y7M/gviz/tq?tqx=out:csv')
+      .then(response => response.text())
+      .then(csvText => {
+        const rows = csvText.trim().split('\n').slice(1); // Erste Zeile = Header
+        rows.forEach(row => {
+          const [name, lat, lng, info, icon] = row.split(',');
 
-      const markerIcon = L.icon({
-        iconUrl: icon.trim(),
-        iconSize: [32, 32],
-        iconAnchor: [16, 16]
+          let iconName = 'default.png';
+          switch (icon.trim()) {
+            case '1': iconName = 'Skatepark.png'; break;
+            case '2': iconName = 'Streetspot.png'; break;
+            case '3': iconName = 'Chillspot.png'; break;
+            case '4': iconName = 'Skatehalle.png'; break;
+          }
+
+          const markerIcon = L.icon({
+            iconUrl: iconName,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          });
+
+          const marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: markerIcon }).addTo(map);
+          marker.bindPopup(`<strong>${name}</strong><br>${info}`);
+        });
+      })
+      .catch(error => {
+        console.error("Fehler beim Laden der Tabelle:", error);
       });
-
-      const marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: markerIcon }).addTo(map);
-      marker.bindPopup(`<strong>${name}</strong><br>${info}`);
-    });
-  })
-  .catch(error => {
-    console.error("Fehler beim Laden der Tabelle:", error);
-  });
   </script>
 </body>
 </html>

@@ -77,21 +77,19 @@
       <h3>🛒 Alliance BMX Shop</h3>
       <p>Findorffstraße 46/48, 28215 Bremen</p>
       <p>Treffpunkt – Local Shop</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.08710,8.80282" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.088072,8.803217" target="_blank">📍 In Google Maps öffnen</a>
     </div>
-
     <div class="spot-entry">
       <h3>🔥 Skatepark Schlachthof Bremen</h3>
       <p>Findorffstraße 51, 28215 Bremen</p>
       <p>Endpunkt – Skatepark</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.08795,8.80266" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.088139,8.802319" target="_blank">📍 In Google Maps öffnen</a>
     </div>
-
     <div class="spot-entry">
       <h3>🪜 Big Five</h3>
       <p>Weserpromenade, 28195 Bremen</p>
       <p>Legend Spot!</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.07176,8.80985" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.071760,8.809850" target="_blank">📍 In Google Maps öffnen</a>
     </div>
   </div>
 
@@ -100,12 +98,12 @@
   <script>
     const map = L.map('map').setView([53.08, 8.80], 13);
 
-    // Stylische dunkle Karte (lesbar!)
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, © OpenMapTiles, © OpenStreetMap'
+    // Lesbare, kontrastreiche Karte
+    L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+      attribution: 'Map tiles by <a href="https://stamen.com">Stamen Design</a>, ' +
+                   '<a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Marker Icons
     const logoIcon = L.icon({
       iconUrl: 'alliance_logo_marker.png',
       iconSize: [60, 40],
@@ -113,4 +111,29 @@
       popupAnchor: [0, -40]
     });
 
-    const rampIcon = L
+    const rampIcon = L.divIcon({
+      html: '🛹',
+      iconSize: [30, 30],
+      className: ''
+    });
+
+    const stairIcon = L.divIcon({
+      html: '🪜',
+      iconSize: [30, 30],
+      className: ''
+    });
+
+    L.marker([53.088072, 8.803217], {icon: logoIcon})
+      .addTo(map)
+      .bindPopup("<strong>Alliance BMX Shop</strong><br>Treffpunkt – Local Shop");
+
+    L.marker([53.088139, 8.802319], {icon: rampIcon})
+      .addTo(map)
+      .bindPopup("<strong>Skatepark Schlachthof</strong><br>Endpunkt – Skatepark");
+
+    L.marker([53.071760, 8.809850], {icon: stairIcon})
+      .addTo(map)
+      .bindPopup("<strong>Big Five</strong><br>Legend Spot!");
+  </script>
+</body>
+</html>

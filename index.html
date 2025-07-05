@@ -1,12 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Go to Spot – Alliance BMX</title>
+
+  <!-- Fjalla One Font -->
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
   <style>
     body {
       margin: 0;
@@ -15,50 +18,58 @@
       background-color: #000;
       color: #ccc;
     }
+
     h1 {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 30px;
       color: #fff;
     }
+
     #map {
       height: 400px;
       width: 100%;
       margin: 30px 0;
       border-radius: 8px;
     }
+
     .spotlist {
       display: flex;
       flex-direction: column;
       gap: 25px;
       margin-bottom: 40px;
     }
+
     .spot-entry {
       border-bottom: 1px solid #333;
       padding-bottom: 15px;
     }
+
     .spot-entry h3 {
       margin: 0;
       font-size: 20px;
       color: #fff;
     }
+
     .spot-entry p {
       margin: 5px 0;
     }
+
     .spot-entry a {
       color: #5cc8ff;
       text-decoration: none;
       font-weight: bold;
     }
+
     .spot-entry a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
   <h1>Go to Spot 🗺️</h1>
-  <p style="text-align:center;">
-    Unsere Lieblingsspots aus Bremen – interaktiv & stylisch dargestellt.
-  </p>
+  <p style="text-align:center;">Unsere Lieblingsspots aus Bremen – interaktiv & stylisch dargestellt.</p>
+
   <div id="map"></div>
 
   <div class="spotlist">
@@ -84,14 +95,17 @@
     </div>
   </div>
 
+  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const map = L.map('map').setView([53.08, 8.80], 13);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://carto.com/">CARTO</a>'
+    // Stylische dunkle Karte (lesbar!)
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, © OpenMapTiles, © OpenStreetMap'
     }).addTo(map);
 
+    // Marker Icons
     const logoIcon = L.icon({
       iconUrl: 'alliance_logo_marker.png',
       iconSize: [60, 40],
@@ -99,29 +113,4 @@
       popupAnchor: [0, -40]
     });
 
-    const rampIcon = L.divIcon({
-      html: '🛹',
-      iconSize: [30, 30],
-      className: ''
-    });
-
-    const stairIcon = L.divIcon({
-      html: '🪜',
-      iconSize: [30, 30],
-      className: ''
-    });
-
-    L.marker([53.08710, 8.80282], {icon: logoIcon})
-      .addTo(map)
-      .bindPopup("<strong>Alliance BMX Shop</strong><br>Treffpunkt – Local Shop");
-
-    L.marker([53.08795, 8.80266], {icon: rampIcon})
-      .addTo(map)
-      .bindPopup("<strong>Skatepark Schlachthof</strong><br>Endpunkt – Skatepark");
-
-    L.marker([53.07176, 8.80985], {icon: stairIcon})
-      .addTo(map)
-      .bindPopup("<strong>Big Five</strong><br>Legend Spot!");
-  </script>
-</body>
-</html>
+    const rampIcon = L

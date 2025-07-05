@@ -34,6 +34,7 @@
       margin: 25px auto;
       text-align: left;
       padding: 0 20px;
+      cursor: pointer;
     }
     .spot h2 {
       font-size: 24px;
@@ -60,21 +61,21 @@
   <p>Unsere Lieblingsspots aus Bremen – interaktiv & stylisch dargestellt.</p>
   <div id="map"></div>
 
-  <div class="spot">
+  <div class="spot" id="goto-alliance">
     <h2>Alliance BMX Shop</h2>
     <div class="address">Findorffstraße 46/48, 28215 Bremen</div>
     <div class="info">Treffpunkt – Local Shop</div>
     <a class="maplink" href="https://maps.apple.com/?q=53.08845,8.80896" target="_blank">In Maps anzeigen</a>
   </div>
 
-  <div class="spot">
+  <div class="spot" id="goto-skatepark">
     <h2>Skatepark Schlachthof</h2>
     <div class="address">Findorffstraße 51, 28215 Bremen</div>
     <div class="info">Endpunkt – Skatepark</div>
     <a class="maplink" href="https://maps.apple.com/?q=53.08799,8.80978" target="_blank">In Maps anzeigen</a>
   </div>
 
-  <div class="spot">
+  <div class="spot" id="goto-stairs">
     <h2>Big Five</h2>
     <div class="address">Weserpromenade, 28195 Bremen</div>
     <div class="info">Legend Spot</div>
@@ -108,9 +109,39 @@
       iconAnchor: [16, 16]
     });
 
-    L.marker([53.08845, 8.80896], { icon: iconAlliance }).addTo(map);
-    L.marker([53.08799, 8.80978], { icon: iconSkatepark }).addTo(map);
-    L.marker([53.07176, 8.80985], { icon: iconStairs }).addTo(map);
+    const spots = [
+      {
+        id: "alliance",
+        coords: [53.08845, 8.80896],
+        icon: iconAlliance,
+        popup: "Alliance BMX Shop"
+      },
+      {
+        id: "skatepark",
+        coords: [53.08799, 8.80978],
+        icon: iconSkatepark,
+        popup: "Skatepark Schlachthof"
+      },
+      {
+        id: "stairs",
+        coords: [53.07176, 8.80985],
+        icon: iconStairs,
+        popup: "Big Five"
+      }
+    ];
+
+    spots.forEach(spot => {
+      const marker = L.marker(spot.coords, { icon: spot.icon }).addTo(map);
+      marker.bindPopup(spot.popup);
+
+      const el = document.getElementById("goto-" + spot.id);
+      if (el) {
+        el.addEventListener("click", () => {
+          map.setView(spot.coords, 17);
+          marker.openPopup();
+        });
+      }
+    });
   </script>
 </body>
 </html>

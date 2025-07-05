@@ -5,9 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Go to Spot – Alliance BMX</title>
 
-  <!-- Fjalla One Font -->
+  <!-- Font & Leaflet -->
   <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <style>
@@ -81,30 +80,31 @@
       <h3>🛒 Alliance BMX Shop</h3>
       <p>Findorffstraße 46/48, 28215 Bremen</p>
       <p>Treffpunkt – Local Shop</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.088072,8.803217" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.08845,8.80896" target="_blank">📍 In Google Maps öffnen</a>
     </div>
     <div class="spot-entry">
       <h3>🔥 Skatepark Schlachthof Bremen</h3>
       <p>Findorffstraße 51, 28215 Bremen</p>
       <p>Endpunkt – Skatepark</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.088139,8.802319" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.08799,8.80978" target="_blank">📍 In Google Maps öffnen</a>
     </div>
     <div class="spot-entry">
       <h3>🪜 Big Five</h3>
       <p>Weserpromenade, 28195 Bremen</p>
       <p>Legend Spot!</p>
-      <a href="https://www.google.com/maps/search/?api=1&query=53.071760,8.809850" target="_blank">📍 In Google Maps öffnen</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=53.07176,8.80985" target="_blank">📍 In Google Maps öffnen</a>
     </div>
   </div>
 
-  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const map = L.map('map').setView([53.08, 8.81], 12);
+    const map = L.map('map').setView([53.08, 8.81], 13);
 
-    // Gute, lesbare OpenStreetMap-Karte
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: false
+    // Weiß/Schwarz Stil (Carto Light)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '',
+      subdomains: 'abcd',
+      maxZoom: 19
     }).addTo(map);
 
     const logoIcon = L.icon({
@@ -126,15 +126,15 @@
       className: ''
     });
 
-    L.marker([53.088072, 8.803217], {icon: logoIcon})
+    L.marker([53.08845, 8.80896], {icon: logoIcon})
       .addTo(map)
       .bindPopup("<strong>Alliance BMX Shop</strong><br>Treffpunkt – Local Shop");
 
-    L.marker([53.088139, 8.802319], {icon: rampIcon})
+    L.marker([53.08799, 8.80978], {icon: rampIcon})
       .addTo(map)
       .bindPopup("<strong>Skatepark Schlachthof</strong><br>Endpunkt – Skatepark");
 
-    L.marker([53.071760, 8.809850], {icon: stairIcon})
+    L.marker([53.07176, 8.80985], {icon: stairIcon})
       .addTo(map)
       .bindPopup("<strong>Big Five</strong><br>Legend Spot!");
   </script>

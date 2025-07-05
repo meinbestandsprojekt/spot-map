@@ -43,6 +43,19 @@
     .spot-item {
       margin-bottom: 25px;
     }
+    .spot-item strong {
+      display: block;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .spot-item .address {
+      color: #aaa;
+      font-size: 15px;
+    }
+    .spot-item .desc {
+      margin: 4px 0;
+    }
   </style>
 </head>
 <body>
@@ -55,21 +68,21 @@
 
   <div class="spot-list">
     <div class="spot-item">
-      <strong>Alliance BMX Shop</strong><br />
-      Findorffstraße 46/48, 28215 Bremen<br />
-      Treffpunkt – Local Shop<br />
+      <strong>Alliance BMX Shop</strong>
+      <div class="address">Findorffstraße 46/48, 28215 Bremen</div>
+      <div class="desc">Treffpunkt – Local Shop</div>
       <a href="https://maps.google.com/?q=53.08845,8.80896" target="_blank">In Google Maps öffnen</a>
     </div>
     <div class="spot-item">
-      <strong>Skatepark Schlachthof Bremen</strong><br />
-      Findorffstraße 51, 28215 Bremen<br />
-      Endpunkt – Skatepark<br />
+      <strong>Skatepark Schlachthof Bremen</strong>
+      <div class="address">Findorffstraße 51, 28215 Bremen</div>
+      <div class="desc">Endpunkt – Skatepark</div>
       <a href="https://maps.google.com/?q=53.08799,8.80978" target="_blank">In Google Maps öffnen</a>
     </div>
     <div class="spot-item">
-      <strong>Big Five</strong><br />
-      Weserpromenade, 28195 Bremen<br />
-      Legend Spot!<br />
+      <strong>Big Five</strong>
+      <div class="address">Weserpromenade, 28195 Bremen</div>
+      <div class="desc">Legend Spot!</div>
       <a href="https://maps.google.com/?q=53.07176,8.80985" target="_blank">In Google Maps öffnen</a>
     </div>
   </div>
@@ -85,8 +98,8 @@
     // Icons
     const iconAlliance = L.icon({
       iconUrl: 'alliance_logo_marker.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
+      iconSize: [28, 28],
+      iconAnchor: [14, 28],
     });
 
     const iconSkatepark = L.icon({
@@ -97,18 +110,6 @@
 
     const iconStreetspot = L.icon({
       iconUrl: 'IMG_8625.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-    });
-
-    const iconChillspot = L.icon({
-      iconUrl: 'IMG_8626.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-    });
-
-    const iconSkatehalle = L.icon({
-      iconUrl: 'IMG_8627.png',
       iconSize: [32, 32],
       iconAnchor: [16, 32],
     });

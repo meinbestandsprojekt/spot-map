@@ -3,55 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Go to Spot 🌍</title>
-  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+  <title>Go to Spot 🗺️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     body {
       margin: 0;
-      background-color: #000;
+      background: #000;
       color: #fff;
       font-family: 'Fjalla One', sans-serif;
       text-align: center;
     }
     h1 {
-      font-size: 42px;
+      font-size: 38px;
       margin: 20px 0 10px;
     }
     p {
-      margin: 0 0 20px;
       font-size: 18px;
+      margin-bottom: 20px;
     }
     #map {
       height: 400px;
       margin: 20px;
-      border-radius: 15px;
+      border-radius: 12px;
       overflow: hidden;
     }
     .spot {
-      margin: 20px auto;
       max-width: 600px;
+      margin: 25px auto;
       text-align: left;
       padding: 0 20px;
     }
     .spot h2 {
-      font-size: 28px;
-      margin: 10px 0 5px;
+      font-size: 24px;
+      margin: 10px 0 6px;
     }
-    .spot .address {
-      color: #aaa;
+    .address {
+      color: #999;
+      font-size: 15px;
+    }
+    .info {
       font-size: 16px;
     }
-    .spot .info {
-      font-size: 17px;
-    }
-    .spot .maplink {
-      color: #fff;
-      font-size: 16px;
-      text-decoration: underline;
+    .maplink {
+      font-size: 15px;
+      margin-top: 5px;
       display: inline-block;
-      margin-top: 4px;
+      text-decoration: underline;
+      color: #fff;
     }
   </style>
 </head>
@@ -66,46 +66,48 @@
     <div class="info">Treffpunkt – Local Shop</div>
     <a class="maplink" href="https://maps.apple.com/?q=53.08845,8.80896" target="_blank">In Maps anzeigen</a>
   </div>
+
   <div class="spot">
     <h2>Skatepark Schlachthof</h2>
     <div class="address">Findorffstraße 51, 28215 Bremen</div>
     <div class="info">Endpunkt – Skatepark</div>
     <a class="maplink" href="https://maps.apple.com/?q=53.08799,8.80978" target="_blank">In Maps anzeigen</a>
   </div>
+
   <div class="spot">
     <h2>Big Five</h2>
     <div class="address">Weserpromenade, 28195 Bremen</div>
-    <div class="info">Legend Spot!</div>
+    <div class="info">Legend Spot</div>
     <a class="maplink" href="https://maps.apple.com/?q=53.07176,8.80985" target="_blank">In Maps anzeigen</a>
   </div>
 
   <script>
-    const map = L.map('map').setView([53.0825, 8.8093], 14);
+    const map = L.map('map').setView([53.084, 8.808], 14);
 
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_gray/{z}/{x}/{y}{r}.png', {
-      maxZoom: 19,
-      attribution: ''
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '',
+      subdomains: 'abcd',
+      maxZoom: 19
     }).addTo(map);
 
     const iconAlliance = L.icon({
       iconUrl: 'alliance_logo_marker.png',
       iconSize: [34, 23],
-      iconAnchor: [17, 11.5],
+      iconAnchor: [17, 11.5]
     });
 
     const iconSkatepark = L.icon({
       iconUrl: 'IMG_8624.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 16],
+      iconAnchor: [16, 16]
     });
 
     const iconStairs = L.icon({
       iconUrl: 'IMG_8625.png',
       iconSize: [32, 32],
-      iconAnchor: [16, 16],
+      iconAnchor: [16, 16]
     });
 
-    // Marker setzen
     L.marker([53.08845, 8.80896], { icon: iconAlliance }).addTo(map);
     L.marker([53.08799, 8.80978], { icon: iconSkatepark }).addTo(map);
     L.marker([53.07176, 8.80985], { icon: iconStairs }).addTo(map);

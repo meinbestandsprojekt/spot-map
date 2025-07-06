@@ -175,7 +175,7 @@
         results.data.forEach(row => {
           const name = row.name?.trim();
           const lat = parseFloat(row.lat?.replace(",", "."));
-          const lng = parseFloat(row.Lng?.replace(",", "."));
+          const lng = parseFloat(row.lng?.replace(",", ".")); // ✅ FIX HIER!
           const info = row.info || "";
           const iconCode = row.icon?.trim();
 

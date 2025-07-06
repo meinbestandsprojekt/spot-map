@@ -92,6 +92,26 @@
       maxZoom: 19
     }).addTo(map);
 
+    const icons = {
+      "1": 'Skatepark.png',
+      "2": 'Streetspot.png',
+      "3": 'Chillspot.png',
+      "4": 'Skatehalle.png'
+    };
+
+    const defaultIcon = L.icon({
+      iconUrl: 'default.png',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16]
+    });
+
+    const localIcons = {
+      "1": L.icon({ iconUrl: 'Skatepark.png', iconSize: [32, 32], iconAnchor: [16, 16] }),
+      "2": L.icon({ iconUrl: 'Streetspot.png', iconSize: [32, 32], iconAnchor: [16, 16] }),
+      "3": L.icon({ iconUrl: 'Chillspot.png', iconSize: [32, 32], iconAnchor: [16, 16] }),
+      "4": L.icon({ iconUrl: 'Skatehalle.png', iconSize: [32, 32], iconAnchor: [16, 16] })
+    };
+
     const iconAlliance = L.icon({
       iconUrl: 'alliance_logo_marker.png',
       iconSize: [34, 23],
@@ -144,40 +164,31 @@
       }
     });
 
-    // CSV mit PapaParse laden
-    Papa.parse("https://docs.google.com/spreadsheets/d/10-MItRgr8ckXkZCeiMU0r24-HNX0nyJKNNn7mwW1y7M/gviz/tq?tqx=out:csv", {
+    // 🧠 PapaParse CSV laden
+    Papa.parse('https://docs.google.com/spreadsheets/d/10-MItRgr8ckXkZCeiMU0r24-HNX0nyJKNNn7mwW1y7M/gviz/tq?tqx=out:csv', {
       download: true,
       header: true,
+      delimiter: ",",
       complete: function(results) {
+        console.log("CSV geladen:", results.data);
+
         results.data.forEach(row => {
-          const name = row.Name;
-          const lat = parseFloat(row.Lat);
-          const lng = parseFloat(row.Lng);
-          const info = row.Info;
-          const iconType = row.Icon;
+          const name = row.name?.trim();
+          const lat = parseFloat(row.lat?.replace(",", "."));
+          const lng = parseFloat(row.Lng?.replace(",", "."));
+          const info = row.info || "";
+          const iconCode = row.icon?.trim();
 
           if (!name || isNaN(lat) || isNaN(lng)) return;
 
-          let iconName = 'default.png';
-          switch (iconType?.trim()) {
-            case '1': iconName = 'Skatepark.png'; break;
-            case '2': iconName = 'Streetspot.png'; break;
-            case '3': iconName = 'Chillspot.png'; break;
-            case '4': iconName = 'Skatehalle.png'; break;
-          }
+          const icon = localIcons[iconCode] || defaultIcon;
 
-          const markerIcon = L.icon({
-            iconUrl: iconName,
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-          });
-
-          const marker = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
+          const marker = L.marker([lat, lng], { icon }).addTo(map);
           marker.bindPopup(`<strong>${name}</strong><br>${info}`);
         });
       },
       error: function(err) {
-        console.error("Fehler beim Laden der Tabelle:", err);
+        console.error("Fehler beim Parsen:", err);
       }
     });
   </script>

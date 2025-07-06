@@ -178,5 +178,21 @@
       parent.postMessage({ type: "resize-map-iframe", height }, "*");
     });
   </script>
+ <script>
+  function sendDynamicHeight() {
+    const height = document.body.scrollHeight;
+    parent.postMessage({ type: "resize-map-iframe", height }, "*");
+  }
+
+  // direkt beim Laden
+  window.addEventListener("load", sendDynamicHeight);
+
+  // bei Resize
+  window.addEventListener("resize", sendDynamicHeight);
+
+  // zusätzlich nochmal 500ms und 1500ms später
+  setTimeout(sendDynamicHeight, 500);
+  setTimeout(sendDynamicHeight, 1500);
+</script>
 </body>
 </html>

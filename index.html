@@ -165,7 +165,10 @@
             iconAnchor: [16, 16]
           });
 
-          const marker = L.marker([parseFloat(lat), parseFloat(lng)], { icon: markerIcon }).addTo(map);
+          const latParsed = parseFloat(lat.replace(',', '.'));
+          const lngParsed = parseFloat(lng.replace(',', '.'));
+
+          const marker = L.marker([latParsed, lngParsed], { icon: markerIcon }).addTo(map);
           marker.bindPopup(`<strong>${name}</strong><br>${info}`);
         });
       })
@@ -175,4 +178,3 @@
   </script>
 </body>
 </html>
-

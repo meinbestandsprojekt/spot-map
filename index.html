@@ -105,49 +105,19 @@
       "4": L.icon({ iconUrl: 'Skatehalle.png', iconSize: [32, 32], iconAnchor: [16, 16] })
     };
 
-    const iconAlliance = L.icon({
-      iconUrl: 'alliance_logo_marker.png',
-      iconSize: [34, 23],
-      iconAnchor: [17, 11.5]
-    });
-
-    const iconSkatepark = L.icon({
-      iconUrl: 'Skatepark.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16]
-    });
-
-    const iconStairs = L.icon({
-      iconUrl: 'Streetspot.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16]
-    });
+    const iconAlliance = L.icon({ iconUrl: 'alliance_logo_marker.png', iconSize: [34, 23], iconAnchor: [17, 11.5] });
+    const iconSkatepark = L.icon({ iconUrl: 'Skatepark.png', iconSize: [32, 32], iconAnchor: [16, 16] });
+    const iconStairs = L.icon({ iconUrl: 'Streetspot.png', iconSize: [32, 32], iconAnchor: [16, 16] });
 
     const spots = [
-      {
-        id: "alliance",
-        coords: [53.08845, 8.80896],
-        icon: iconAlliance,
-        popup: "Alliance BMX Shop"
-      },
-      {
-        id: "skatepark",
-        coords: [53.08799, 8.80978],
-        icon: iconSkatepark,
-        popup: "Skatepark Schlachthof"
-      },
-      {
-        id: "stairs",
-        coords: [53.07176, 8.80985],
-        icon: iconStairs,
-        popup: "Big Five"
-      }
+      { id: "alliance", coords: [53.08845, 8.80896], icon: iconAlliance, popup: "Alliance BMX Shop" },
+      { id: "skatepark", coords: [53.08799, 8.80978], icon: iconSkatepark, popup: "Skatepark Schlachthof" },
+      { id: "stairs", coords: [53.07176, 8.80985], icon: iconStairs, popup: "Big Five" }
     ];
 
     spots.forEach(spot => {
       const marker = L.marker(spot.coords, { icon: spot.icon }).addTo(map);
       marker.bindPopup(spot.popup);
-
       const el = document.getElementById("goto-" + spot.id);
       if (el) {
         el.addEventListener("click", () => {
@@ -196,13 +166,13 @@
           document.body.appendChild(spotContainer);
         });
 
-        // Nach dem Laden: Höhe an Shopify melden
+        // Höhe an Shopify melden
         const height = document.body.scrollHeight;
         parent.postMessage({ type: "resize-map-iframe", height }, "*");
       }
     });
 
-    // Bei Resize neu messen
+    // Bei Resize ebenfalls melden
     window.addEventListener("resize", () => {
       const height = document.body.scrollHeight;
       parent.postMessage({ type: "resize-map-iframe", height }, "*");

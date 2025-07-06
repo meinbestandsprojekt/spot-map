@@ -31,13 +31,14 @@
       overflow: hidden;
     }
     .spot {
-      max-width: 600px;
-      margin: 25px auto;
+      box-sizing: border-box;
       text-align: left;
       padding: 0 20px;
       cursor: pointer;
+      width: 100%;
     }
     .spot h2 {
+      font-weight: normal;
       font-size: 24px;
       margin: 10px 0 6px;
     }
@@ -55,6 +56,20 @@
       text-decoration: underline;
       color: #fff;
     }
+    /* Desktop: Liste nebeneinander */
+    @media (min-width: 768px) {
+      .spot-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .spot {
+        width: 45%;
+        margin: 15px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -62,25 +77,27 @@
   <p>Viel Spaß!</p>
   <div id="map"></div>
 
-  <div class="spot" id="goto-alliance">
-    <h2>Alliance BMX Shop</h2>
-    <div class="address">Findorffstraße 46/48, 28215 Bremen</div>
-    <div class="info">Treffpunkt – Local Shop</div>
-    <a class="maplink" href="https://maps.apple.com/?q=53.08845,8.80896" target="_blank">In Maps anzeigen</a>
-  </div>
+  <div class="spot-list">
+    <div class="spot" id="goto-alliance">
+      <h2>Alliance BMX Shop</h2>
+      <div class="address">Findorffstraße 46/48, 28215 Bremen</div>
+      <div class="info">Treffpunkt – Local Shop</div>
+      <a class="maplink" href="https://maps.apple.com/?q=53.08845,8.80896" target="_blank">In Maps anzeigen</a>
+    </div>
 
-  <div class="spot" id="goto-skatepark">
-    <h2>Skatepark Schlachthof</h2>
-    <div class="address">Findorffstraße 51, 28215 Bremen</div>
-    <div class="info">Endpunkt – Skatepark</div>
-    <a class="maplink" href="https://maps.apple.com/?q=53.08799,8.80978" target="_blank">In Maps anzeigen</a>
-  </div>
+    <div class="spot" id="goto-skatepark">
+      <h2>Skatepark Schlachthof</h2>
+      <div class="address">Findorffstraße 51, 28215 Bremen</div>
+      <div class="info">Endpunkt – Skatepark</div>
+      <a class="maplink" href="https://maps.apple.com/?q=53.08799,8.80978" target="_blank">In Maps anzeigen</a>
+    </div>
 
-  <div class="spot" id="goto-stairs">
-    <h2>Big Five</h2>
-    <div class="address">Weserpromenade, 28195 Bremen</div>
-    <div class="info">Legend Spot</div>
-    <a class="maplink" href="https://maps.apple.com/?q=53.07176,8.80985" target="_blank">In Maps anzeigen</a>
+    <div class="spot" id="goto-stairs">
+      <h2>Big Five</h2>
+      <div class="address">Weserpromenade, 28195 Bremen</div>
+      <div class="info">Legend Spot</div>
+      <a class="maplink" href="https://maps.apple.com/?q=53.07176,8.80985" target="_blank">In Maps anzeigen</a>
+    </div>
   </div>
 
   <script>
@@ -163,36 +180,29 @@
             marker.openPopup();
           });
 
-          document.body.appendChild(spotContainer);
+          document.querySelector('.spot-list').appendChild(spotContainer);
         });
 
-        // Höhe an Shopify melden
         const height = document.body.scrollHeight;
         parent.postMessage({ type: "resize-map-iframe", height }, "*");
       }
     });
 
-    // Bei Resize ebenfalls melden
     window.addEventListener("resize", () => {
       const height = document.body.scrollHeight;
       parent.postMessage({ type: "resize-map-iframe", height }, "*");
     });
   </script>
- <script>
-  function sendDynamicHeight() {
-    const height = document.body.scrollHeight;
-    parent.postMessage({ type: "resize-map-iframe", height }, "*");
-  }
+  <script>
+    function sendDynamicHeight() {
+      const height = document.body.scrollHeight;
+      parent.postMessage({ type: "resize-map-iframe", height }, "*");
+    }
 
-  // direkt beim Laden
-  window.addEventListener("load", sendDynamicHeight);
-
-  // bei Resize
-  window.addEventListener("resize", sendDynamicHeight);
-
-  // zusätzlich nochmal 500ms und 1500ms später
-  setTimeout(sendDynamicHeight, 500);
-  setTimeout(sendDynamicHeight, 1500);
-</script>
+    window.addEventListener("load", sendDynamicHeight);
+    window.addEventListener("resize", sendDynamicHeight);
+    setTimeout(sendDynamicHeight, 500);
+    setTimeout(sendDynamicHeight, 1500);
+  </script>
 </body>
 </html>

@@ -92,13 +92,6 @@
       maxZoom: 19
     }).addTo(map);
 
-    const icons = {
-      "1": 'Skatepark.png',
-      "2": 'Streetspot.png',
-      "3": 'Chillspot.png',
-      "4": 'Skatehalle.png'
-    };
-
     const defaultIcon = L.icon({
       iconUrl: 'default.png',
       iconSize: [32, 32],
@@ -112,70 +105,15 @@
       "4": L.icon({ iconUrl: 'Skatehalle.png', iconSize: [32, 32], iconAnchor: [16, 16] })
     };
 
-    const iconAlliance = L.icon({
-      iconUrl: 'alliance_logo_marker.png',
-      iconSize: [34, 23],
-      iconAnchor: [17, 11.5]
-    });
-
-    const iconSkatepark = L.icon({
-      iconUrl: 'Skatepark.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16]
-    });
-
-    const iconStairs = L.icon({
-      iconUrl: 'Streetspot.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16]
-    });
-
-    const spots = [
-      {
-        id: "alliance",
-        coords: [53.08845, 8.80896],
-        icon: iconAlliance,
-        popup: "Alliance BMX Shop"
-      },
-      {
-        id: "skatepark",
-        coords: [53.08799, 8.80978],
-        icon: iconSkatepark,
-        popup: "Skatepark Schlachthof"
-      },
-      {
-        id: "stairs",
-        coords: [53.07176, 8.80985],
-        icon: iconStairs,
-        popup: "Big Five"
-      }
-    ];
-
-    spots.forEach(spot => {
-      const marker = L.marker(spot.coords, { icon: spot.icon }).addTo(map);
-      marker.bindPopup(spot.popup);
-
-      const el = document.getElementById("goto-" + spot.id);
-      if (el) {
-        el.addEventListener("click", () => {
-          map.setView(spot.coords, 17);
-          marker.openPopup();
-        });
-      }
-    });
-
-    // 🧠 PapaParse CSV laden
     Papa.parse('https://docs.google.com/spreadsheets/d/10-MItRgr8ckXkZCeiMU0r24-HNX0nyJKNNn7mwW1y7M/export?format=csv', {
       download: true,
       header: true,
       delimiter: ",",
       complete: function(results) {
-        console.log("CSV geladen:", results.data);
-
         results.data.forEach(row => {
           const name = row.name?.trim();
           const lat = parseFloat(row.lat?.replace(",", "."));
-          const lng = parseFloat(row.lng?.replace(",", ".")); // ✅ FIX HIER!
+          const lng = parseFloat(row.lng?.replace(",", "."));
           const info = row.info || "";
           const iconCode = row.icon?.trim();
 
@@ -185,10 +123,18 @@
 
           const marker = L.marker([lat, lng], { icon }).addTo(map);
           marker.bindPopup(`<strong>${name}</strong><br>${info}`);
+
+          const spotContainer = document.createElement("div");
+          spotContainer.className = "spot";
+
+          spotContainer.innerHTML = `
+            <h2>${name}</h2>
+            <div class="address">${info}</div>
+            <a class="maplink" href="https://maps.apple.com/?q=${lat},${lng}" target="_blank">In Maps anzeigen</a>
+          `;
+
+          document.body.appendChild(spotContainer);
         });
-      },
-      error: function(err) {
-        console.error("Fehler beim Parsen:", err);
       }
     });
   </script>
